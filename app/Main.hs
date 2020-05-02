@@ -2,6 +2,7 @@
 module Main where
 
 import Text.Gen
+import Text.Gen.Json
 import Data.Text
 
 main :: IO ()
@@ -15,3 +16,5 @@ main = do
             genPair "(" ")\n" $ do
                 genRaw "a,b,c"
             genLine "cnmb"
+    putStrLn $ unpack $ runGen "    " $ do
+        genJsonArray $ genJsonString `fmap` ["gg","iji"]

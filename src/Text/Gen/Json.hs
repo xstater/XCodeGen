@@ -13,8 +13,15 @@ genJsonBoolean :: Bool -> Gen ()
 genJsonBoolean True = genRaw "true"
 genJsonBoolean False = genRaw "false"
 
+genSeq :: [Gen ()] -> Text -> Gen ()
+genSeq (x:xs) splt= do
+    x
+    genRaw splt
+    genSeq xs
+genSeq [] = return ()
+
 genJsonArray :: [Gen ()] -> Gen ()
 genJsonArray genlst = do
     genPair "[" "]" $ do
-        mapM genlst 
+        genSeq genlst ","
 
