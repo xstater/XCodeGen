@@ -3,11 +3,15 @@
 module Text.Gen(
     Gen,
     runGen,
+    incIndent,
+    decIndent,
     getIndent,
-    setIndent,
+    genIndent,
     getIndentChar,
-    genNewLine,
-    genLine
+    genNewline,
+    genLine,
+    genRaw,
+    genPair
 )where
 
 import Control.Monad
@@ -31,28 +35,51 @@ runGen indc g =
 getIndent :: Gen Int
 getIndent = get
 
-setIndent :: Int -> Gen ()
-setIndent i = set i
+incIndent :: Gen ()
+incIndent = do
+    ind <- get
+    put $ ind + 1
+
+decIndent :: Gen ()
+decIndent = do
+    ind <- get
+    put $ ind - 1
 
 getIndentChar :: Gen Text
 getIndentChar = ask
 
 genNewline :: Gen ()
-genNewline = write "\n"
+genNewline = tell "\n"
+
+for :: (Integral i,Monad m) => i -> (i -> m a) -> m ()
+for i f = if i /= 0 then do
+    f i
+    for (i-1) f
+else
+    return ()
+
+genIndent :: Gen ()
+genIndent = do
+    ind <- getIndent
+    indchr <- getIndentChar
+    for ind $ \_ -> tell indchr
+
+genRaw :: Text -> Gen ()
+genRaw txt = do
+    tell txt
 
 genLine :: Text -> Gen ()
 genLine txt = do
-    ind <- getIndent
-    indchar <- getIndentChar
-    for ind \i -> tell indchar
+    genIndent
+    tell txt
     genNewline
-    where
-        for :: (Integeral i,Monad m) => i -> (i -> m a) -> m ()
-        for i f = if i != 0 then do
-            f i
-            for (i-1) f
-        else
-            return ()
-    
-    
 
+    
+genPair:: Text -> Text -> Gen () -> Gen ()
+genPair front last gen = do
+    tell front
+    incIndent
+    gen
+    decIndent
+    tell last
+     
