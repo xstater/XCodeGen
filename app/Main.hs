@@ -1,6 +1,8 @@
 module Main where
 
-import Lib
+import Text.Gen
 
 main :: IO ()
-main = someFunc
+main = do
+    print $ runGen "aa" do
+        genLine "nmsl"
