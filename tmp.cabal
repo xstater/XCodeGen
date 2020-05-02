@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 3798c6648ae89cc0281e45ac373c3f78029fa10f42dbd99ec7459c37bbbba1c8
+-- hash: e9c6069178b8041613bed81fb88d44baec4be82bb4f966128c63107124267b41
 
 name:           tmp
 version:        0.1.0.0
@@ -28,6 +28,8 @@ source-repository head
 library
   exposed-modules:
       Text.Gen
+      Text.Gen.C
+      Text.Gen.Json
   other-modules:
       Paths_tmp
   hs-source-dirs:
