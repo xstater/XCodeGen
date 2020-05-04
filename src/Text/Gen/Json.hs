@@ -1,31 +1,50 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 module Text.Gen.Json(
-    genJsonString,
-    genJsonBoolean,
-    genJsonArray
+    string,
+    bool,
+    number,
+    Text.Gen.Json.null,
+    array,
+    object,
+    value,
+    lineComma
 )where
 
 import Text.Gen
-import Data.Text
+import Data.Text hiding (split)
 
-genJsonString :: Text -> Gen ()
-genJsonString str = genPair "\"" "\"" $ genRaw str
+string :: Text -> Gen ()
+string txt = pair "\"" "\"" $ raw txt
 
-genJsonBoolean :: Bool -> Gen ()
-genJsonBoolean True = genRaw "true"
-genJsonBoolean False = genRaw "false"
+bool :: Bool -> Gen ()
+bool True = raw "true"
+bool False = raw "false"
 
-genSeq :: [Gen ()] -> Text -> Gen ()
-genSeq (x:[]) _ = x
-genSeq (x:xs) splt = do
-    x
-    genRaw splt
-    genSeq xs splt
-genSeq [] _ = return ()
+number :: (Show n,Num n) => n -> Gen ()
+number num = raw $ pack $ show num
 
-genJsonArray :: [Gen ()] -> Gen ()
-genJsonArray genlst = do
-    genPair "[" "]" $ do
-        genSeq genlst ","
+null :: Gen ()
+null = raw "null"
+
+array :: [Gen ()] -> Gen ()
+array xs = pair "[" "]" $ split "," xs
+
+object :: Gen () -> Gen ()
+object acts = do
+    block "{\n" "}" acts 
+    
+
+value :: Text -> Gen () -> Gen ()
+value name acts = do
+    string name
+    raw ":"
+    acts
+
+lineComma :: Gen () -> Gen ()
+lineComma act = do
+    indent
+    act
+    raw ","
+    newline
 
