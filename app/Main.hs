@@ -7,37 +7,33 @@ import Text.Gen.C
 import Data.Text
 import System.IO
 
-{--
-main :: IO ()
-main = do
-    putStrLn $ unpack $ runGen "    " $ do
-        block "{\n" "}\n" $ do
-            line $ raw "asd;"
-            line $ do
-                raw "func"
-                pair "(" ");" $ Text.Gen.split "," [raw "a",raw "b"]
-            line $ raw "asd"
-            line $ do
-                raw "if"
-                pair "(" ")" $ raw "a == b"
-                block "{\n" "}\n" $ do
-                    line $ raw "asd;"
-                    line $ raw "adsasd;"
---}
-
-{--
-main :: IO ()
-main = do
-    putStrLn $ unpack $ runGen "    " $ do
-        object $ do
-            lineComma $ value "name" $ string "john"
-            lineComma $ value "age" $ number 3
-            lineComma $ value "ids" $ array $ string `fmap` ["asd","ads"]
-            line $ value "info" $ object $ do
-                lineComma $ value "asd" $ string "asd"
-                lineComma $ value "bl" $ bool False
-                line $ value "asdsa" $ string "asd"
---}
+--main :: IO ()
+--main = do
+--    putStrLn $ unpack $ runGen "    " $ do
+--        block "{\n" "}\n" $ do
+--            line $ raw "asd;"
+--            line $ do
+--                raw "func"
+--                pair "(" ");" $ Text.Gen.split "," [raw "a",raw "b"]
+--            line $ raw "asd"
+--            line $ do
+--                raw "if"
+--                pair "(" ")" $ raw "a == b"
+--                block "{\n" "}\n" $ do
+--                    line $ raw "asd;"
+--                    line $ raw "adsasd;"
+--
+--main :: IO ()
+--main = do
+--    putStrLn $ unpack $ runGen "    " $ do
+--        object $ do
+--            lineComma $ value "name" $ string "john"
+--            lineComma $ value "age" $ number 3
+--            lineComma $ value "ids" $ array $ string `fmap` ["asd","ads"]
+--            line $ value "info" $ object $ do
+--                lineComma $ value "asd" $ string "asd"
+--                lineComma $ value "bl" $ bool False
+--                line $ value "asdsa" $ string "asd"
 
 main :: IO ()
 main = do
