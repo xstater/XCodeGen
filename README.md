@@ -2,7 +2,7 @@
 a simple pattern code generator written in Haskell
 
 ## example
-```
+```haskell
 import Text.Gen
 import Text.Gen.C
 
@@ -34,7 +34,7 @@ main = do
             statement $ raw "return 0"
 ```
 output:
-```
+```c++
 #include "stdio.h"
 #define PI 3.1415926
 
