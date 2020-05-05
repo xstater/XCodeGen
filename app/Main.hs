@@ -2,9 +2,10 @@
 module Main where
 
 import Text.Gen
-import Text.Gen.Json
---import Text.Gen.C
+--import Text.Gen.Json
+import Text.Gen.C
 import Data.Text
+import System.IO
 
 {--
 main :: IO ()
@@ -24,6 +25,7 @@ main = do
                     line $ raw "adsasd;"
 --}
 
+{--
 main :: IO ()
 main = do
     putStrLn $ unpack $ runGen "    " $ do
@@ -35,8 +37,8 @@ main = do
                 lineComma $ value "asd" $ string "asd"
                 lineComma $ value "bl" $ bool False
                 line $ value "asdsa" $ string "asd"
+--}
 
-{--
 main :: IO ()
 main = do
     putStrLn $ unpack $ runGen "    " $ do
@@ -64,4 +66,4 @@ main = do
             statement $ call "printf" [call "nmsl" [char' 'b',number 222]]
             statement $ raw "return 0"
 
---} 
+
