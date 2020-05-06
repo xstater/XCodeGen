@@ -1,8 +1,10 @@
 # XCodeGen
 a simple pattern code generator written in Haskell
 
-## example
+## example1
 ```haskell
+{-# LANGUAGE OverloadedStrings #-}
+
 import Text.Gen
 import Text.Gen.C
 
@@ -54,5 +56,38 @@ int main(int argc,char argv[]){
     nmsl('a',123);
     printf(nmsl('b',222));
     return 0;
+}
+```
+
+## example2 
+```haskell
+{-# LANGUAGE OverloadedStrings #-}
+
+import Text.Gen
+import Text.Gen.Json
+
+main :: IO ()
+main = do
+    putStrLn $ unpack $ runGen "    " $ do
+        object $ do
+            lineComma $ value "name" $ string "john"
+            lineComma $ value "age" $ number 3
+            lineComma $ value "ids" $ array $ string `fmap` ["asd","ads"]
+            line $ value "info" $ object $ do
+                lineComma $ value "asd" $ string "asd"
+                lineComma $ value "bl" $ bool False
+                line $ value "asdsa" $ string "asd"
+```
+output:
+```json
+{
+    "name":"john",
+    "age":3,
+    "ids":["asd","ads"],
+    "info":{
+        "asd":"asd",
+        "bl":false,
+        "asdsa":"asd"
+    }
 }
 ```
