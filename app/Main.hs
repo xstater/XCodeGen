@@ -2,8 +2,9 @@
 module Main where
 
 import Text.Gen
-import Text.Gen.Json
+--import Text.Gen.Json
 --import Text.Gen.C
+import Text.Gen.Latex
 import Data.Text
 import System.IO
 
@@ -23,17 +24,17 @@ import System.IO
 --                    line $ raw "asd;"
 --                    line $ raw "adsasd;"
 --
-main :: IO ()
-main = do
-    putStrLn $ unpack $ runGen "    " $ do
-        object $ do
-            lineComma $ value "name" $ string "john"
-            lineComma $ value "age" $ number 3
-            lineComma $ value "ids" $ array $ string `fmap` ["asd","ads"]
-            line $ value "info" $ object $ do
-                lineComma $ value "asd" $ string "asd"
-                lineComma $ value "bl" $ bool False
-                line $ value "asdsa" $ string "asd"
+-- main :: IO ()
+-- main = do
+--     putStrLn $ unpack $ runGen "    " $ do
+--         object $ do
+--             lineComma $ value "name" $ string "john"
+--             lineComma $ value "age" $ number 3
+--             lineComma $ value "ids" $ array $ string `fmap` ["asd","ads"]
+--             line $ value "info" $ object $ do
+--                 lineComma $ value "asd" $ string "asd"
+--                 lineComma $ value "bl" $ bool False
+--                 line $ value "asdsa" $ string "asd"
 
 --main :: IO ()
 --main = do
@@ -62,4 +63,10 @@ main = do
 --            statement $ call "printf" [call "nmsl" [char' 'b',number 222]]
 --            statement $ raw "return 0"
 
-
+main :: IO ()
+main = do
+    putStrLn $ unpack $ runGen "    " $ do
+        aligned $ do
+            indent
+            sqrt_ $ (raw "3") `frac` (raw "4")
+            newline_
