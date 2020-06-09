@@ -24,6 +24,7 @@ dependencies:
 - transformers
 - mtl
 - text
+- hint
 
 library:
   source-dirs: src
