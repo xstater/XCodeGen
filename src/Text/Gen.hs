@@ -1,4 +1,4 @@
-{-# OverloadedStrings #-}
+{-# LANGUAGE OverloadedStrings #-}
 
 module Text.Gen(
     
